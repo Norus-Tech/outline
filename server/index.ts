@@ -30,6 +30,7 @@ import { PluginManager } from "./utils/PluginManager";
 // The number of processes to run, defaults to the number of CPU's available
 // for the web service, and 1 for collaboration during the beta period.
 let webProcessCount = env.WEB_CONCURRENCY;
+const workersCount = env.WORKERS;
 
 if (env.SERVICES.includes("collaboration")) {
   if (webProcessCount !== 1) {
@@ -201,8 +202,15 @@ const isWebProcess =
   env.SERVICES.includes("api") ||
   env.SERVICES.includes("collaboration");
 
+const isWorkerProcess =
+  env.SERVICES.includes("worker") && env.SERVICES.length === 1;
+
 void throng({
   master,
   worker: start,
-  count: isWebProcess ? webProcessCount : undefined,
+  count: isWebProcess
+    ? webProcessCount
+    : isWorkerProcess
+    ? workersCount || undefined
+    : undefined,
 });

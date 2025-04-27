@@ -417,6 +417,13 @@ export class Environment {
   );
 
   /**
+   * The number of workers to use
+   */
+  @IsOptional()
+  @IsNumber()
+  public WORKERS = this.toOptionalNumber(environment.WORKERS) ?? 0;
+
+  /**
    * The maximum number of concurrent events processed per-worker. To get total
    * concurrency you should multiply this by the number of workers.
    */
