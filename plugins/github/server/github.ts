@@ -226,7 +226,9 @@ export class GitHub {
       const client = await GitHub.authenticateAsInstallation(
         integration.settings.github!.installation.id
       );
-      Logger.debug("Github client", client);
+      Logger.debug("Github Integration", integration.settings.github);
+      Logger.debug("Client", client);
+      Logger.debug("Resource", resource);
 
       const res = await client.requestResource(resource);
       if (!res) {
