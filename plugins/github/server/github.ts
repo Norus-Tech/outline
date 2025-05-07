@@ -235,6 +235,7 @@ export class GitHub {
       return GitHub.transformData(res.data, resource.type);
     } catch (err) {
       Logger.warn("Failed to fetch resource from GitHub", err);
+      Logger.debug(err);
       return { error: err.message || "Unknown error" };
     }
   };
