@@ -226,19 +226,28 @@ export class GitHub {
       const client = await GitHub.authenticateAsInstallation(
         integration.settings.github!.installation.id
       );
-      Logger.debug("Github Integration", integration.settings.github);
-      Logger.debug("Client", client);
-      Logger.debug("Resource", resource);
+      Logger.debug(
+        "plugins",
+        "Github Integration",
+        integration.settings.github
+      );
+      Logger.debug("plugins", "Client", client);
+      Logger.debug("plugins", "Resource", resource);
 
       const res = await client.requestResource(resource);
       if (!res) {
         return { error: "Resource not found" };
       }
-      Logger.debug("URL request", { resource, res });
+      Logger.debug("plugins", "URL request", { resource, res });
 
       return GitHub.transformData(res.data, resource.type);
     } catch (err) {
-      Logger.warn("Failed to fetch resource from GitHub", err);
+      Logger.warn(
+        err.response
+          ? `Failed to fetch resource from GitHub: ${err.response.status}: ${err.response.data.message}`
+          : "Failed to fetch resource from GitHub: ",
+        err
+      );
       return { error: err.message || "Unknown error" };
     }
   };
