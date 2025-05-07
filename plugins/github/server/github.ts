@@ -226,16 +226,17 @@ export class GitHub {
       const client = await GitHub.authenticateAsInstallation(
         integration.settings.github!.installation.id
       );
+      Logger.debug("Github client", client);
 
       const res = await client.requestResource(resource);
       if (!res) {
         return { error: "Resource not found" };
       }
+      Logger.debug("URL request", { resource, res });
 
       return GitHub.transformData(res.data, resource.type);
     } catch (err) {
       Logger.warn("Failed to fetch resource from GitHub", err);
-      Logger.debug(err);
       return { error: err.message || "Unknown error" };
     }
   };
