@@ -5,6 +5,15 @@ export enum UserRole {
   Guest = "guest",
 }
 
+/**
+ * Scopes for OAuth and API keys.
+ */
+export enum Scope {
+  Read = "read",
+  Write = "write",
+  Create = "create",
+}
+
 export type DateFilter = "day" | "week" | "month" | "year";
 
 export enum StatusFilter {
@@ -461,7 +470,7 @@ export type UnfurlResponse = {
     /** Pull Request author */
     author: { name: string; avatarUrl: string };
     /** Pull Request status */
-    state: { name: string; color: string };
+    state: { name: string; color: string; draft?: boolean };
     /** Pull Request creation time */
     createdAt: string;
   };
