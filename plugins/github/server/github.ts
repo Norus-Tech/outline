@@ -231,7 +231,6 @@ export class GitHub {
         "Github Integration",
         integration.settings.github
       );
-      Logger.debug("plugins", "Client", client);
       Logger.debug("plugins", "Resource", resource);
 
       const res = await client.requestResource(resource);
