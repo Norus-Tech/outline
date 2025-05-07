@@ -245,7 +245,7 @@ export class GitHub {
       Logger.warn(
         err.response
           ? `Failed to fetch resource from GitHub: ${err.response.status}: ${err.response.data.message}`
-          : "Failed to fetch resource from GitHub: ",
+          : `Failed to fetch resource from GitHub: ${JSON.stringify(err)}`,
         err
       );
       return { error: err.message || "Unknown error" };
