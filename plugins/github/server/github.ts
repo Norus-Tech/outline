@@ -234,12 +234,13 @@ export class GitHub {
       Logger.debug("plugins", "Resource", resource);
 
       const res = await client.requestResource(resource);
+      Logger.debug("plugins", "URL request", { resource, res });
       if (!res) {
         return { error: "Resource not found" };
       }
-      Logger.debug("plugins", "URL request", { resource, res });
 
-      return GitHub.transformData(res.data, resource.type);
+      // return GitHub.transformData(res.data, resource.type);
+      return {};
     } catch (err) {
       Logger.warn(
         err.response
